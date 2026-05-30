@@ -6,12 +6,18 @@
 #          strip prefix from prompt
 #          inject XML as additionalContext
 # Output:  JSON with additionalContext if matched
-#          silent exit 0 if no match or no cache
+#          silent exit 0 if no match, no cache, or jq unavailable
 
 set -euo pipefail
 
+# Graceful degradation: if jq is not installed, pass the prompt through
+# unchanged instead of erroring. The developer's prompt always reaches Claude.
+command -v jq >/dev/null 2>&1 || exit 0
+
 INPUT=$(cat)
-PROMPT=$(echo "$INPUT" | jq -r '.prompt // ""')
+# tr -d '\r' guards against jq builds that emit CRLF (e.g. native jq.exe on
+# Windows); a stray trailing CR would otherwise break prefix matching.
+PROMPT=$(echo "$INPUT" | jq -r '.prompt // ""' | tr -d '\r')
 
 # Fast path — no cc- prefix, pass through immediately
 if [[ "$PROMPT" != cc-* ]]; then
@@ -30,7 +36,7 @@ SIGNAL_MAP=$(cat "$CC_SIGNAL_CACHE")
 while IFS= read -r PREFIX; do
   if [[ "$PROMPT" == "$PREFIX "* || "$PROMPT" == "$PREFIX" ]]; then
 
-    CONTEXT=$(echo "$SIGNAL_MAP" | jq -r --arg p "$PREFIX" '.[$p] // ""')
+    CONTEXT=$(echo "$SIGNAL_MAP" | jq -r --arg p "$PREFIX" '.[$p] // ""' | tr -d '\r')
 
     [ -z "$CONTEXT" ] && continue
 
@@ -50,7 +56,7 @@ while IFS= read -r PREFIX; do
 
     exit 0
   fi
-done < <(echo "$SIGNAL_MAP" | jq -r 'keys[]')
+done < <(echo "$SIGNAL_MAP" | jq -r 'keys[]' | tr -d '\r')
 
 # No prefix matched — pass through
 exit 0

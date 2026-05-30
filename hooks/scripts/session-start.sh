@@ -10,11 +10,15 @@
 
 set -euo pipefail
 
+# Graceful degradation: if jq is not installed, do nothing. No cache is built,
+# and detect-signal.sh will pass every prompt through unchanged.
+command -v jq >/dev/null 2>&1 || exit 0
+
 # ─── READ PAYLOAD ─────────────────────────────────────────────
 INPUT=$(cat)
-SESSION_ID=$(echo "$INPUT" | jq -r '.session_id // "unknown"')
-MODEL=$(echo "$INPUT"     | jq -r '.model // "unknown"')
-CWD=$(echo "$INPUT"       | jq -r '.cwd // ""')
+SESSION_ID=$(echo "$INPUT" | jq -r '.session_id // "unknown"' | tr -d '\r')
+MODEL=$(echo "$INPUT"     | jq -r '.model // "unknown"' | tr -d '\r')
+CWD=$(echo "$INPUT"       | jq -r '.cwd // ""' | tr -d '\r')
 
 PLUGIN_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 SIGNALS_DIR="$PLUGIN_ROOT/signals"
@@ -119,9 +123,9 @@ for SIGNAL_FILE in "$SIGNALS_DIR"/*.md; do
   [ -f "$SIGNAL_FILE" ] || continue
 
   # Read frontmatter
-  PREFIX=$(grep  "^prefix:"  "$SIGNAL_FILE" 2>/dev/null | head -1 | sed 's/^prefix: *//')
-  ENABLED=$(grep "^enabled:" "$SIGNAL_FILE" 2>/dev/null | head -1 | sed 's/^enabled: *//')
-  NAME=$(grep    "^name:"    "$SIGNAL_FILE" 2>/dev/null | head -1 | sed 's/^name: *//')
+  PREFIX=$(grep  "^prefix:"  "$SIGNAL_FILE" 2>/dev/null | head -1 | sed 's/^prefix: *//' | tr -d '\r')
+  ENABLED=$(grep "^enabled:" "$SIGNAL_FILE" 2>/dev/null | head -1 | sed 's/^enabled: *//' | tr -d '\r')
+  NAME=$(grep    "^name:"    "$SIGNAL_FILE" 2>/dev/null | head -1 | sed 's/^name: *//' | tr -d '\r')
 
   [ "$ENABLED" = "false" ] && continue
   [ -z "$PREFIX" ]         && continue
@@ -177,6 +181,7 @@ for SIGNAL_FILE in "$SIGNALS_DIR"/*.md; do
   # ─── STORE IN MAP ───────────────────────────────────────────
   # Collapse multiline to single escaped string for JSON storage
   ESCAPED_CONTENT=$(echo "$CONTENT" | \
+    tr -d '\r'       | \
     tr -s ' \t' ' '  | \
     sed ':a;N;$!ba;s/\n/ /g' | \
     sed 's/  */ /g')

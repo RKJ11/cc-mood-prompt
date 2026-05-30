@@ -6,6 +6,24 @@ Prefix any Claude Code prompt with a signal.
 Claude responds differently. No configuration.
 No settings menu. No commands to remember.
 
+## Requirements
+
+The hooks are pure Bash and depend on two tools being on your `PATH`:
+
+- **bash** — runs the hook scripts
+- **jq** — parses the hook JSON and builds the signal cache
+
+Platform support:
+
+- **macOS / Linux** — works out of the box once `jq` is installed
+  (`brew install jq`, `apt install jq`, `dnf install jq`, …).
+- **Windows** — requires a POSIX shell (Git Bash or WSL) and `jq` on
+  `PATH` (`winget install jqlang.jq`). The scripts strip carriage returns,
+  so a CRLF-emitting `jq` build is handled.
+
+If `jq` (or bash) is missing, the plugin degrades gracefully: every prompt
+passes through to Claude unchanged — no errors, no broken session.
+
 ## Install
 
     /plugin marketplace add RKJ11/cc-mood-prompt
