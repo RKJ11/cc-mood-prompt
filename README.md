@@ -21,7 +21,9 @@ no broken session.
 ## Install
 
     /plugin marketplace add RKJ11/cc-mood-prompt
-    /plugin install cc-mood-prompt@RKJ11
+    /plugin install cc-mood-prompt@cc-mood-prompt
+
+Then start a new session or run `/clear` so the signal cache is built.
 
 ## Usage
 
