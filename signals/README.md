@@ -51,7 +51,7 @@ Run /clear to rebuild the cache.
 |-------------------|---------|------------------------------------------|
 | cc-frustrated.md  | cc-:(   | Previous response missed the mark        |
 | cc-critical.md    | cc-:x   | Production down, urgent                  |
-| cc-thinking.md    | cc-:|   | Too shallow, think deeper                |
+| cc-thinking.md    | cc-:\|  | Too shallow, think deeper                |
 | cc-precise.md     | cc-:>   | Too verbose, just the answer             |
 | cc-explore.md     | cc-:~   | Explore more options                     |
 | cc-teach.md       | cc-:?   | Explain simply                           |

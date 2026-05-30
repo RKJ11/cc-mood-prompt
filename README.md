@@ -42,7 +42,7 @@ no broken session.
 |--------|--------------------------------------------|
 | cc-:(  | Previous response missed the mark          |
 | cc-:x  | Critical and urgent                        |
-| cc-:|  | Too shallow, think deeper                  |
+| cc-:\| | Too shallow, think deeper                  |
 | cc-:>  | Too verbose, just the answer               |
 | cc-:~  | Explore more options                       |
 | cc-:?  | Explain simply                             |
