@@ -1,0 +1,20 @@
+{
+  "name": "cc-mood-prompt",
+  "version": "1.0.0",
+  "description": "Prefix any Claude Code prompt with cc-:( cc-:x cc-:| and more to instantly shape how Claude responds. Model-aware. CLAUDE.md-aware. No configuration. No commands. Just signal and go.",
+  "author": "RKJ11",
+  "license": "MIT",
+  "homepage": "https://github.com/RKJ11/cc-mood-prompt",
+  "repository": "https://github.com/RKJ11/cc-mood-prompt.git",
+  "hooks": "hooks/hooks.json",
+  "minClaudeCodeVersion": "2.0.0",
+  "keywords": [
+    "hooks",
+    "prompt-engineering",
+    "developer-experience",
+    "signals",
+    "mood",
+    "routing",
+    "xml"
+  ]
+}

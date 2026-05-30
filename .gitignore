@@ -1,0 +1,23 @@
+# ── OS files ──────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# ── Editor files ──────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Test artifacts ────────────────────────────────────────────
+# Created by sed -i.bak during standalone testing
+*.bak
+
+# ── Runtime cache ─────────────────────────────────────────────
+# Cache lives in /tmp by design — this is a safety net only
+cc-mood-prompt-*.json
