@@ -1,0 +1,14 @@
+{
+  "name": "cc-mood-prompt",
+  "owner": {
+    "name": "RKJ11",
+    "url": "https://github.com/RKJ11"
+  },
+  "plugins": [
+    {
+      "name": "cc-mood-prompt",
+      "source": "./",
+      "description": "Prefix any Claude Code prompt with a signal like cc-:( cc-:x cc-:| to instantly shape how Claude responds. Model-aware, CLAUDE.md-aware, zero dependencies. No configuration, no commands."
+    }
+  ]
+}
