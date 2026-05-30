@@ -21,3 +21,7 @@ ehthumbs.db
 # ── Runtime cache ─────────────────────────────────────────────
 # Cache lives in /tmp by design — this is a safety net only
 cc-mood-prompt-*.json
+
+# ── Claude Code local files ───────────────────────────────────
+# Created by the claude CLI / validate in the working tree
+.claude/
