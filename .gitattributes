@@ -1,7 +1,4 @@
-# Shell scripts must use LF line endings on every OS, otherwise bash fails
-# with "$'\r': command not found". This overrides any local core.autocrlf.
-*.sh text eol=lf
-
-# Signal definitions and JSON are read by the hooks; keep them LF too.
+# Keep text files LF on every OS for consistent, portable behavior.
+*.mjs text eol=lf
 *.json text eol=lf
-signals/*.md text eol=lf
+*.md text eol=lf

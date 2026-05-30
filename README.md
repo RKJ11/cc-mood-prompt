@@ -8,21 +8,15 @@ No settings menu. No commands to remember.
 
 ## Requirements
 
-The hooks are pure Bash and depend on two tools being on your `PATH`:
+**No external dependencies.** The hooks are pure Node.js (`.mjs`) and use
+only Node's built-in modules — no `bash`, `jq`, `awk` or `sed`.
 
-- **bash** — runs the hook scripts
-- **jq** — parses the hook JSON and builds the signal cache
+- **Windows / macOS / Linux** — works out of the box. Claude Code runs on
+  Node, so `node` is already available to the hooks; nothing to install.
 
-Platform support:
-
-- **macOS / Linux** — works out of the box once `jq` is installed
-  (`brew install jq`, `apt install jq`, `dnf install jq`, …).
-- **Windows** — requires a POSIX shell (Git Bash or WSL) and `jq` on
-  `PATH` (`winget install jqlang.jq`). The scripts strip carriage returns,
-  so a CRLF-emitting `jq` build is handled.
-
-If `jq` (or bash) is missing, the plugin degrades gracefully: every prompt
-passes through to Claude unchanged — no errors, no broken session.
+If `node` is somehow unavailable, the plugin degrades gracefully: the hook
+simply doesn't run and every prompt reaches Claude unchanged — no errors,
+no broken session.
 
 ## Install
 
