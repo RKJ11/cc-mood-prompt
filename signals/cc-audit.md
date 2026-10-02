@@ -1,11 +1,12 @@
 ---
-prefix: cc-:o
+prefix: cc-audit
+aliases: cc-:o, cc-smell, cc-redteam, cc-sus, cc-roast
 name: audit
 enabled: true
 ---
 
 [default]
-<signal name="cc-:o">
+<signal name="audit">
   <developer_state>
     Developer suspects something is wrong with the current approach.
     An adversarial review is needed.

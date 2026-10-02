@@ -1,55 +1,46 @@
 #!/usr/bin/env node
 // cc-mood-prompt — detect-signal.mjs
 // Event:   UserPromptSubmit (every prompt)
-// Purpose: detect cc- prefix in prompt
-//          read pre-resolved XML from cache
-//          inject XML as additionalContext
-// Output:  JSON with additionalContext if matched
-//          silent exit 0 if no match, no cache, or bad input
+// Purpose: find the last cc- signal anywhere in the prompt, resolve that
+//          one signal file for this session's model and project, and
+//          inject it as additionalContext
+// Output:  JSON with additionalContext if a signal matched
+//          silent exit 0 if no match or bad input
+//
+// Runs on every prompt, so the common case stays minimal: if the raw
+// payload has no "cc-" anywhere, exit before parsing JSON or loading the
+// signal library. Only a possible signal pays for the rest.
 //
 // Pure Node.js: no external dependencies. Runs on Windows, macOS, Linux.
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 
-function main() {
+async function main() {
   let raw = '';
   try { raw = readFileSync(0, 'utf8'); } catch { return; }
+  if (!/cc-/i.test(raw)) return;
 
   let payload;
-  try { payload = JSON.parse(raw || '{}'); } catch { return; }
-
+  try { payload = JSON.parse(raw); } catch { return; }
+  if (!payload || typeof payload !== 'object') return;
   const prompt = typeof payload.prompt === 'string' ? payload.prompt : '';
+  if (!/cc-/i.test(prompt)) return;
 
-  // Fast path — no cc- prefix, pass through immediately
-  if (!prompt.startsWith('cc-')) return;
+  const { loadSignalIndex, findSignal, resolveSignal, modelFamily, readSessionModel } = await import('./lib/signals.mjs');
+  const sig = findSignal(prompt, loadSignalIndex());
+  if (!sig) return;
 
-  // No cache available — degrade gracefully
-  const cache = process.env.CC_SIGNAL_CACHE;
-  if (!cache || !existsSync(cache)) return;
+  const context = resolveSignal(sig, {
+    family: modelFamily(readSessionModel(payload.session_id)),
+    cwd: typeof payload.cwd === 'string' ? payload.cwd : '',
+  });
+  if (!context) return;
 
-  let map;
-  try { map = JSON.parse(readFileSync(cache, 'utf8')); } catch { return; }
-  if (!map || typeof map !== 'object') return;
-
-  // Match a known prefix at the start of the prompt, followed by a space
-  // or the end of the string.
-  for (const prefix of Object.keys(map)) {
-    if (prompt === prefix || prompt.startsWith(`${prefix} `)) {
-      const context = map[prefix];
-      if (!context) continue;
-
-      const output = {
-        hookSpecificOutput: {
-          hookEventName: 'UserPromptSubmit',
-          additionalContext: context,
-        },
-      };
-      process.stdout.write(JSON.stringify(output));
-      return;
-    }
-  }
-  // No prefix matched — pass through
+  process.stdout.write(JSON.stringify({
+    hookSpecificOutput: { hookEventName: 'UserPromptSubmit', additionalContext: context },
+  }));
 }
 
-main();
-process.exit(0);
+// A broken install (e.g. missing lib file) also lands here: no signal,
+// prompt untouched.
+main().catch(() => {}).finally(() => process.exit(0));

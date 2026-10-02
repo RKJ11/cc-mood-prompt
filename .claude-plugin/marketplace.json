@@ -4,11 +4,12 @@
     "name": "RKJ11",
     "url": "https://github.com/RKJ11"
   },
+  "description": "Intent signals for Claude Code: drop cc-urgent, cc-eli5, cc-roast and more into any prompt to shape how Claude responds.",
   "plugins": [
     {
       "name": "cc-mood-prompt",
       "source": "./",
-      "description": "Prefix any Claude Code prompt with a signal like cc-:( cc-:x cc-:| to instantly shape how Claude responds. Model-aware, CLAUDE.md-aware, zero dependencies. No configuration, no commands."
+      "description": "Drop a signal like cc-urgent, cc-eli5 or cc-roast anywhere in a prompt to instantly shape how Claude responds. Model-aware, CLAUDE.md-aware, zero dependencies. No configuration, no commands."
     }
   ]
 }

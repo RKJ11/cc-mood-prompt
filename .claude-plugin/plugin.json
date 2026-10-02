@@ -1,7 +1,7 @@
 {
   "name": "cc-mood-prompt",
-  "version": "1.0.0",
-  "description": "Prefix any Claude Code prompt with cc-:( cc-:x cc-:| and more to instantly shape how Claude responds. Model-aware. CLAUDE.md-aware. No configuration. No commands. Just signal and go.",
+  "version": "1.1.0",
+  "description": "Drop a signal like cc-urgent, cc-eli5 or cc-roast (or the classic cc-:( cc-:x cc-:|) anywhere in a Claude Code prompt to instantly shape how Claude responds. Model-aware. CLAUDE.md-aware. No configuration. No commands. Just signal and go.",
   "author": {
     "name": "RKJ11",
     "url": "https://github.com/RKJ11"

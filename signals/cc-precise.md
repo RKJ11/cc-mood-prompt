@@ -1,11 +1,12 @@
 ---
-prefix: cc-:>
+prefix: cc-short
+aliases: cc-:>, cc-tldr, cc-bluf, cc-nofluff
 name: precise
 enabled: true
 ---
 
 [default]
-<signal name="cc-:>">
+<signal name="precise">
   <developer_state>
     Developer wants one exact answer. Nothing more.
     Previous or potential response is too verbose.

@@ -25,3 +25,10 @@ cc-mood-prompt-*.json
 # ── Claude Code local files ───────────────────────────────────
 # Created by the claude CLI / validate in the working tree
 .claude/
+# Personal, project-scoped instructions — not shared with the team
+CLAUDE.md
+CLAUDE.local.md
+
+# ── Design docs ───────────────────────────────────────────────
+# Spec doc, not part of the plugin tree
+cc-mood-prompt-TDD-*.md

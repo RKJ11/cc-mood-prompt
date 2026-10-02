@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 // cc-mood-prompt — session-end.mjs
 // Event:   SessionEnd
-// Purpose: clean up cache file from the temp dir
+// Purpose: delete this session's state file from the temp dir
 // Output:  silent
 //
 // Pure Node.js: no external dependencies. Runs on Windows, macOS, Linux.
 
-import { existsSync, rmSync } from 'node:fs';
+import { rmSync } from 'node:fs';
 
-const cache = process.env.CC_SIGNAL_CACHE;
-if (cache && existsSync(cache)) {
-  try { rmSync(cache, { force: true }); } catch { /* ignore */ }
-}
+// Any failure, including a broken install, must never break the session.
+try {
+  const { readPayload, sessionFile } = await import('./lib/signals.mjs');
+  const file = sessionFile(readPayload().session_id);
+  if (file) rmSync(file, { force: true });
+} catch { /* ignore */ }
 
 process.exit(0);

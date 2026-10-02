@@ -1,11 +1,12 @@
 ---
-prefix: cc-:?
+prefix: cc-explain
+aliases: cc-:?, cc-eli5, cc-101, cc-huh
 name: teach
 enabled: true
 ---
 
 [default]
-<signal name="cc-:?">
+<signal name="teach">
   <developer_state>
     Developer does not understand the previous response or topic.
     A simpler clearer explanation is needed from the beginning.

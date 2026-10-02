@@ -1,11 +1,12 @@
 ---
-prefix: cc-:(
+prefix: cc-nope
+aliases: cc-:(, cc-reroll, cc-bruh, cc-mid
 name: frustrated
 enabled: true
 ---
 
 [default]
-<signal name="cc-:(">
+<signal name="frustrated">
   <developer_state>
     Developer is not satisfied with the previous response.
     It missed the mark. A different approach is needed.

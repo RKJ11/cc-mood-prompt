@@ -1,11 +1,12 @@
 ---
-prefix: cc-:)
+prefix: cc-yes
+aliases: cc-:), cc-lgtm, cc-bet, cc-slay, cc-based
 name: confirm
 enabled: true
 ---
 
 [default]
-<signal name="cc-:)">
+<signal name="confirm">
   <developer_state>
     Developer is satisfied with the current direction.
     Brief confirmation and natural continuation is all that is needed.

@@ -1,11 +1,12 @@
 ---
-prefix: cc-:D
+prefix: cc-ship
+aliases: cc-:D, cc-mvp, cc-shipit, cc-yolo, cc-sendit
 name: ship
 enabled: true
 ---
 
 [default]
-<signal name="cc-:D">
+<signal name="ship">
   <developer_state>
     Developer wants to ship now.
     Pragmatism over perfection. Done over ideal.

@@ -1,11 +1,12 @@
 ---
-prefix: cc-:|
+prefix: cc-deep
+aliases: cc-:|, cc-deepdive, cc-bigbrain, cc-200iq
 name: thinking
 enabled: true
 ---
 
 [default]
-<signal name="cc-:|">
+<signal name="thinking">
   <developer_state>
     Developer wants deeper analysis than previously provided.
     Shallow answers are not sufficient here.
@@ -31,7 +32,7 @@ enabled: true
 </signal>
 
 [haiku]
-<signal name="cc-:|">
+<signal name="thinking">
   <developer_state>
     Developer wants deeper analysis than previously provided.
     Shallow answers are not sufficient here.
@@ -57,7 +58,7 @@ enabled: true
 </signal>
 
 [sonnet]
-<signal name="cc-:|">
+<signal name="thinking">
   <developer_state>
     Developer wants deeper analysis than previously provided.
     Shallow answers are not sufficient here.
@@ -86,7 +87,7 @@ enabled: true
 </signal>
 
 [opus]
-<signal name="cc-:|">
+<signal name="thinking">
   <developer_state>
     Developer wants deeper analysis than previously provided.
     Shallow answers are not sufficient here.

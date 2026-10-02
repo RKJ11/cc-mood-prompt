@@ -1,6 +1,6 @@
 # Privacy Policy — cc-mood-prompt
 
-_Last updated: 2026-05-31_
+_Last updated: 2026-10-02_
 
 ## Summary
 
@@ -14,25 +14,26 @@ kind.
 cc-mood-prompt is a set of local Claude Code hooks written in pure Node.js. It:
 
 1. Reads the signal definition files bundled with the plugin (`signals/*.md`).
-2. At session start, builds a small cache of pre-resolved signal text and
-   writes it to your operating system's temporary directory
-   (e.g. `%TEMP%` on Windows, `/tmp` on macOS/Linux).
-3. On each prompt you submit, checks whether the prompt begins with a known
+2. At session start, saves the session's model name (e.g.
+   `claude-opus-5-5`) to a small file in your operating system's temporary
+   directory (e.g. `%TEMP%` on Windows, `/tmp` on macOS/Linux).
+3. On each prompt you submit, checks whether the prompt contains a known
    `cc-` signal and, if so, injects predefined behavioural context for Claude.
-4. At session end, deletes the cache file it created.
+4. At session end, deletes the file it created. Files left behind by
+   sessions that ended abruptly are deleted after 7 days.
 
 ## Data the plugin accesses
 
 - **Your prompt text** is read locally by the `UserPromptSubmit` hook only to
-  detect a leading `cc-` signal. It is never copied, logged, stored, or sent
+  detect a `cc-` signal. It is never copied, logged, stored, or sent
   anywhere. It continues to Claude Code exactly as it normally would.
 - **Local project signals** — the plugin checks whether a `CLAUDE.md` file and
   common project markers (e.g. `package.json`, `go.mod`) exist in your working
-  directory, solely to tailor the injected instructions. It reads only whether
+  directory or its parent folders (up to the repository root), solely to tailor the injected instructions. It reads only whether
   these files exist and the project type they imply; their contents are not
   transmitted anywhere.
-- **The session cache file** lives only in your local temp directory and is
-  removed when the session ends.
+- **The session file** holds only the model name, lives only in your local
+  temp directory, and is removed when the session ends.
 
 ## Data the plugin does NOT do
 

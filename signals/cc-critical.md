@@ -1,11 +1,12 @@
 ---
-prefix: cc-:x
+prefix: cc-urgent
+aliases: cc-:x, cc-p0, cc-sev1, cc-sos, cc-fire, cc-911
 name: critical
 enabled: true
 ---
 
 [default]
-<signal name="cc-:x">
+<signal name="critical">
   <developer_state>
     Critical and urgent situation. Production may be affected.
     Every second counts. Developer needs fastest path to resolution.

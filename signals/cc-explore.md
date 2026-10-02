@@ -1,11 +1,12 @@
 ---
-prefix: cc-:~
+prefix: cc-explore
+aliases: cc-:~, cc-spitball, cc-whatif, cc-brainstorm
 name: explore
 enabled: true
 ---
 
 [default]
-<signal name="cc-:~">
+<signal name="explore">
   <developer_state>
     Developer wants to explore broadly.
     Do not converge. Do not recommend yet.
@@ -31,7 +32,7 @@ enabled: true
 </signal>
 
 [haiku]
-<signal name="cc-:~">
+<signal name="explore">
   <developer_state>
     Developer wants to explore broadly.
     Do not converge. Do not recommend yet.
@@ -59,7 +60,7 @@ enabled: true
 </signal>
 
 [sonnet]
-<signal name="cc-:~">
+<signal name="explore">
   <developer_state>
     Developer wants to explore broadly.
     Do not converge. Do not recommend yet.
@@ -88,7 +89,7 @@ enabled: true
 </signal>
 
 [opus]
-<signal name="cc-:~">
+<signal name="explore">
   <developer_state>
     Developer wants to explore broadly.
     Do not converge. Do not recommend yet.

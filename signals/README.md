@@ -2,60 +2,68 @@
 
 Each .md file in this directory defines one signal.
 Edit the body of any file to change what context gets injected.
+Changes apply on your next prompt — no restart or /clear needed.
 
 ## File format
 
 Every signal file uses this structure:
 
     ---
-    prefix: cc-:(
-    name: frustrated
+    prefix: cc-urgent
+    aliases: cc-:x, cc-sos, cc-p0
+    name: critical
     enabled: true
     ---
 
     [default]
-    <signal name="cc-:(">
+    <signal name="critical">
       ... XML content injected as additionalContext ...
     </signal>
 
-The [default] block is used for all model variants unless
-a specific [haiku], [sonnet], or [opus] block is present.
+- `prefix` — the signal's main name, shown in the docs.
+- `aliases` — other names, comma-separated (`[a, b]` also works).
+  Every name triggers the same signal.
+- `name` — the signal's identity; use it in the `<signal name="...">` tag.
+- `enabled` — `false` (or `no` / `off` / `0`) disables every name.
 
-## How to edit a signal
+Names must start with `cc-`, contain no spaces, and are case-insensitive.
+If two files claim the same name, the file that sorts first keeps it.
 
-1. Open the file for the signal you want to change
-2. Edit the XML content inside the [default] block
-3. Save the file
-4. Run /clear in Claude Code to rebuild the cache
+## Model variants
 
-## How to add model-variant instructions
+The [default] block is used for all models unless a specific
+[haiku], [sonnet] or [opus] block is present. Always include [default].
+Only those four `[name]` lines are block markers; any other line starting
+with `[` is ordinary content.
 
-Add [haiku] [sonnet] or [opus] blocks to any signal file.
-session-start.sh will use the matching block for the current model.
+## Placeholders
 
-## How to disable a signal
+These work in any signal:
 
-Change enabled: true to enabled: false in the frontmatter.
-Run /clear to rebuild the cache.
+- `CLAUDEMD_ADDITION: <text>` — when the project has a CLAUDE.md,
+  CLAUDE.local.md or .claude/CLAUDE.md, the line becomes `<text>`;
+  otherwise the whole line is removed.
+- `PROJECT_TYPE_ADDITION` — replaced with testing guidance for the
+  detected stack (Node, Python, Go, Rust, Java), or generic guidance.
 
 ## How to add a new signal
 
 1. Create a new .md file in this directory
 2. Follow the format above
-3. Choose a prefix starting with cc- that does not conflict
-4. Run /clear to rebuild the cache
+3. Pick names starting with cc- that no other signal uses
+4. Use it in your next prompt
 
 ## Signal reference
 
-| File              | Prefix  | Developer Meaning                        |
-|-------------------|---------|------------------------------------------|
-| cc-frustrated.md  | cc-:(   | Previous response missed the mark        |
-| cc-critical.md    | cc-:x   | Production down, urgent                  |
-| cc-thinking.md    | cc-:\|  | Too shallow, think deeper                |
-| cc-precise.md     | cc-:>   | Too verbose, just the answer             |
-| cc-explore.md     | cc-:~   | Explore more options                     |
-| cc-teach.md       | cc-:?   | Explain simply                           |
-| cc-confirm.md     | cc-:)   | Good direction, keep going               |
-| cc-ship.md        | cc-:D   | Pragmatic, ship it                       |
-| cc-audit.md       | cc-:o   | Something feels wrong, review it         |
-| cc-test.md        | cc-:T   | Write tests, edge cases                  |
+| File              | Name       | Main name    | Aliases                                        |
+|-------------------|------------|--------------|------------------------------------------------|
+| cc-frustrated.md  | frustrated | cc-nope      | cc-:( cc-reroll cc-bruh cc-mid                 |
+| cc-critical.md    | critical   | cc-urgent    | cc-:x cc-p0 cc-sev1 cc-sos cc-fire cc-911      |
+| cc-thinking.md    | thinking   | cc-deep      | cc-:\| cc-deepdive cc-bigbrain cc-200iq        |
+| cc-precise.md     | precise    | cc-short     | cc-:> cc-tldr cc-bluf cc-nofluff               |
+| cc-explore.md     | explore    | cc-explore   | cc-:~ cc-spitball cc-whatif cc-brainstorm      |
+| cc-teach.md       | teach      | cc-explain   | cc-:? cc-eli5 cc-101 cc-huh                    |
+| cc-confirm.md     | confirm    | cc-yes       | cc-:) cc-lgtm cc-bet cc-slay cc-based          |
+| cc-ship.md        | ship       | cc-ship      | cc-:D cc-mvp cc-shipit cc-yolo cc-sendit       |
+| cc-audit.md       | audit      | cc-audit     | cc-:o cc-smell cc-redteam cc-sus cc-roast      |
+| cc-test.md        | test       | cc-test      | cc-:T cc-tdd cc-qa cc-breakit                  |

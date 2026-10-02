@@ -1,11 +1,12 @@
 ---
-prefix: cc-:T
+prefix: cc-test
+aliases: cc-:T, cc-tdd, cc-qa, cc-breakit
 name: test
 enabled: true
 ---
 
 [default]
-<signal name="cc-:T">
+<signal name="test">
   <developer_state>
     Developer wants tests written or considered
     for what was just discussed.
