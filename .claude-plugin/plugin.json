@@ -10,12 +10,14 @@
   "homepage": "https://github.com/RKJ11/cc-mood-prompt",
   "repository": "https://github.com/RKJ11/cc-mood-prompt.git",
   "keywords": [
+    "claude-code",
     "hooks",
     "prompt-engineering",
     "developer-experience",
     "signals",
     "mood",
-    "routing",
+    "aliases",
+    "productivity",
     "xml"
   ]
 }
